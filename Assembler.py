@@ -325,11 +325,10 @@ else:
             imm2 = imm[0:9:1]
             binary = imm1+imm2+rs1+code.opcode
             result.append(binary)          
-with open(out_path, 'w') as s:
-    for i in range(len(result)-1):
-        res = result.pop(0)
-        if res.strip():  
-            s.write(res + '\n')
-    s.write(result.pop(0))
-
+s = open(out_path, 'w') 
+for i in range(len(result)-1):
+    res = result.pop(0)
+    if res.strip():  
+        s.write(res + '\n')
+s.write(result.pop(0))
 s.close()
