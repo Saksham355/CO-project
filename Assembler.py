@@ -1,5 +1,6 @@
 import sys
 import re
+# binary conversion
 def bin_i(num,l):
     if num < 0:
         binary_repr = bin(num & 0xFFF)[3:]
@@ -14,6 +15,7 @@ def bin_i(num,l):
             binary_repr = '0' + binary_repr
     
         return binary_repr
+# function for register conversion to binary
 def reg(r):
     add = int(r[1::1])
     return bin_i(add,5)
@@ -26,6 +28,7 @@ with open(input_path,'r') as f:
         if i != " ":
             assemb.append(i)
 result = []
+#classes for every type of instruction
 class r_type:
     def __init__(self, func7, func3):
         self.opcode = "0110011"
@@ -54,7 +57,7 @@ class u_type:
 class j_type:
     def __init__(self, opcode):
         self.opcode = opcode
-
+#dictionary for every type of instruction
 r_dict = {
     "add": r_type("0000000", "000"),
     "sub": r_type("0100000", "000"),
@@ -66,7 +69,6 @@ r_dict = {
     "or": r_type("0000000", "110"),
     "and": r_type("0000000", "111")    
 }
-
 i_dict = {
     "lw": i_type("0000011", "010"),
     "addi": i_type("0010011", "000"),
@@ -95,7 +97,7 @@ u_dict = {
 j_dict = {
     "jal": j_type("1101111")
 }
-
+#mapping every instruction to its type
 ins_dict = {
     'add': 'r',
     'sub': 'r',
@@ -121,6 +123,7 @@ ins_dict = {
     'auipc': 'u',
     'jal': 'j'
 }
+#mapping every register to its ABI name
 reg_dict = abi_registers = {
     "zero": "x0",
     "ra": "x1",
